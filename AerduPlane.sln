@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArduPlane", "ArduPlane", "{23436C5E-6BBD-406F-80BB-3276537D0780}"
+	ProjectSection(SolutionItems) = preProject
+		ArduPlane\afs_plane.cpp = ArduPlane\afs_plane.cpp
+		ArduPlane\altitude.cpp = ArduPlane\altitude.cpp
+		ArduPlane\AP_Arming.cpp = ArduPlane\AP_Arming.cpp
+		ArduPlane\AP_Arming.h = ArduPlane\AP_Arming.h
+		ArduPlane\APM_Config.h = ArduPlane\APM_Config.h
+		ArduPlane\APM_Config.h.reference = ArduPlane\APM_Config.h.reference
+		ArduPlane\ArduPlane.cpp = ArduPlane\ArduPlane.cpp
+		ArduPlane\Attitude.cpp = ArduPlane\Attitude.cpp
+		ArduPlane\avoidance_adsb.cpp = ArduPlane\avoidance_adsb.cpp
+		ArduPlane\avoidance_adsb.h = ArduPlane\avoidance_adsb.h
+		ArduPlane\capabilities.cpp = ArduPlane\capabilities.cpp
+		ArduPlane\commands.cpp = ArduPlane\commands.cpp
+		ArduPlane\commands_logic.cpp = ArduPlane\commands_logic.cpp
+		ArduPlane\config.h = ArduPlane\config.h
+		ArduPlane\control_modes.cpp = ArduPlane\control_modes.cpp
+		ArduPlane\createTags = ArduPlane\createTags
+		ArduPlane\defines.h = ArduPlane\defines.h
+		ArduPlane\events.cpp = ArduPlane\events.cpp
+		ArduPlane\failsafe.cpp = ArduPlane\failsafe.cpp
+		ArduPlane\GCS_Mavlink.cpp = ArduPlane\GCS_Mavlink.cpp
+		ArduPlane\GCS_Mavlink.h = ArduPlane\GCS_Mavlink.h
+		ArduPlane\GCS_Plane.cpp = ArduPlane\GCS_Plane.cpp
+		ArduPlane\GCS_Plane.h = ArduPlane\GCS_Plane.h
+		ArduPlane\geofence.cpp = ArduPlane\geofence.cpp
+		ArduPlane\is_flying.cpp = ArduPlane\is_flying.cpp
+		ArduPlane\Log.cpp = ArduPlane\Log.cpp
+		ArduPlane\make.inc = ArduPlane\make.inc
+		ArduPlane\Makefile = ArduPlane\Makefile
+		ArduPlane\Makefile.waf = ArduPlane\Makefile.waf
+		ArduPlane\motor_test.cpp = ArduPlane\motor_test.cpp
+		ArduPlane\navigation.cpp = ArduPlane\navigation.cpp
+		ArduPlane\parachute.cpp = ArduPlane\parachute.cpp
+		ArduPlane\Parameters.cpp = ArduPlane\Parameters.cpp
+		ArduPlane\Parameters.h = ArduPlane\Parameters.h
+		ArduPlane\Plane.cpp = ArduPlane\Plane.cpp
+		ArduPlane\Plane.h = ArduPlane\Plane.h
+		ArduPlane\px4_mixer.cpp = ArduPlane\px4_mixer.cpp
+		ArduPlane\quadplane.cpp = ArduPlane\quadplane.cpp
+		ArduPlane\quadplane.h = ArduPlane\quadplane.h
+		ArduPlane\radio.cpp = ArduPlane\radio.cpp
+		ArduPlane\release-notes.txt = ArduPlane\release-notes.txt
+		ArduPlane\sensors.cpp = ArduPlane\sensors.cpp
+		ArduPlane\servos.cpp = ArduPlane\servos.cpp
+		ArduPlane\soaring.cpp = ArduPlane\soaring.cpp
+		ArduPlane\system.cpp = ArduPlane\system.cpp
+		ArduPlane\tailsitter.cpp = ArduPlane\tailsitter.cpp
+		ArduPlane\takeoff.cpp = ArduPlane\takeoff.cpp
+		ArduPlane\tiltrotor.cpp = ArduPlane\tiltrotor.cpp
+		ArduPlane\tuning.cpp = ArduPlane\tuning.cpp
+		ArduPlane\tuning.h = ArduPlane\tuning.h
+		ArduPlane\version.cpp = ArduPlane\version.cpp
+		ArduPlane\version.h = ArduPlane\version.h
+		ArduPlane\wscript = ArduPlane\wscript
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C40C301C-54C9-4FD1-B3E5-128952F5070C}
+	EndGlobalSection
+EndGlobal
