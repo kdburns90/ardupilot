@@ -60,9 +60,54 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArduPlane", "ArduPlane", "{
 		ArduPlane\wscript = ArduPlane\wscript
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{77B69BB8-08C2-4C99-82D6-91B7189B8251}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AP_Motors", "AP_Motors", "{440F29AE-283F-42BE-9D27-469060FBB433}"
+	ProjectSection(SolutionItems) = preProject
+		libraries\AP_Motors\AP_Motors.h = libraries\AP_Motors\AP_Motors.h
+		libraries\AP_Motors\AP_Motors6DOF.cpp = libraries\AP_Motors\AP_Motors6DOF.cpp
+		libraries\AP_Motors\AP_Motors6DOF.h = libraries\AP_Motors\AP_Motors6DOF.h
+		libraries\AP_Motors\AP_Motors_Class.cpp = libraries\AP_Motors\AP_Motors_Class.cpp
+		libraries\AP_Motors\AP_Motors_Class.h = libraries\AP_Motors\AP_Motors_Class.h
+		libraries\AP_Motors\AP_MotorsCoax.cpp = libraries\AP_Motors\AP_MotorsCoax.cpp
+		libraries\AP_Motors\AP_MotorsCoax.h = libraries\AP_Motors\AP_MotorsCoax.h
+		libraries\AP_Motors\AP_MotorsHeli.cpp = libraries\AP_Motors\AP_MotorsHeli.cpp
+		libraries\AP_Motors\AP_MotorsHeli.h = libraries\AP_Motors\AP_MotorsHeli.h
+		libraries\AP_Motors\AP_MotorsHeli_Dual.cpp = libraries\AP_Motors\AP_MotorsHeli_Dual.cpp
+		libraries\AP_Motors\AP_MotorsHeli_Dual.h = libraries\AP_Motors\AP_MotorsHeli_Dual.h
+		libraries\AP_Motors\AP_MotorsHeli_Quad.cpp = libraries\AP_Motors\AP_MotorsHeli_Quad.cpp
+		libraries\AP_Motors\AP_MotorsHeli_Quad.h = libraries\AP_Motors\AP_MotorsHeli_Quad.h
+		libraries\AP_Motors\AP_MotorsHeli_RSC.cpp = libraries\AP_Motors\AP_MotorsHeli_RSC.cpp
+		libraries\AP_Motors\AP_MotorsHeli_RSC.h = libraries\AP_Motors\AP_MotorsHeli_RSC.h
+		libraries\AP_Motors\AP_MotorsHeli_Single.cpp = libraries\AP_Motors\AP_MotorsHeli_Single.cpp
+		libraries\AP_Motors\AP_MotorsHeli_Single.h = libraries\AP_Motors\AP_MotorsHeli_Single.h
+		libraries\AP_Motors\AP_MotorsMatrix.cpp = libraries\AP_Motors\AP_MotorsMatrix.cpp
+		libraries\AP_Motors\AP_MotorsMatrix.h = libraries\AP_Motors\AP_MotorsMatrix.h
+		libraries\AP_Motors\AP_MotorsMulticopter.cpp = libraries\AP_Motors\AP_MotorsMulticopter.cpp
+		libraries\AP_Motors\AP_MotorsMulticopter.h = libraries\AP_Motors\AP_MotorsMulticopter.h
+		libraries\AP_Motors\AP_MotorsSingle.cpp = libraries\AP_Motors\AP_MotorsSingle.cpp
+		libraries\AP_Motors\AP_MotorsSingle.h = libraries\AP_Motors\AP_MotorsSingle.h
+		libraries\AP_Motors\AP_MotorsTailsitter.cpp = libraries\AP_Motors\AP_MotorsTailsitter.cpp
+		libraries\AP_Motors\AP_MotorsTailsitter.h = libraries\AP_Motors\AP_MotorsTailsitter.h
+		libraries\AP_Motors\AP_MotorsTri.cpp = libraries\AP_Motors\AP_MotorsTri.cpp
+		libraries\AP_Motors\AP_MotorsTri.h = libraries\AP_Motors\AP_MotorsTri.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SRV_Channel", "SRV_Channel", "{EA520C10-4D11-4857-9074-F0E4A0FBD0FE}"
+	ProjectSection(SolutionItems) = preProject
+		libraries\SRV_Channel\SRV_Channel.cpp = libraries\SRV_Channel\SRV_Channel.cpp
+		libraries\SRV_Channel\SRV_Channel.h = libraries\SRV_Channel\SRV_Channel.h
+		libraries\SRV_Channel\SRV_Channel_aux.cpp = libraries\SRV_Channel\SRV_Channel_aux.cpp
+		libraries\SRV_Channel\SRV_Channels.cpp = libraries\SRV_Channel\SRV_Channels.cpp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{440F29AE-283F-42BE-9D27-469060FBB433} = {77B69BB8-08C2-4C99-82D6-91B7189B8251}
+		{EA520C10-4D11-4857-9074-F0E4A0FBD0FE} = {77B69BB8-08C2-4C99-82D6-91B7189B8251}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C40C301C-54C9-4FD1-B3E5-128952F5070C}
