@@ -110,6 +110,10 @@ void SRV_Channel::aux_servo_function_setup(void)
     case k_flaperon_right:
     case k_tiltMotorLeft:
     case k_tiltMotorRight:
+    case k_tiltMotorFrontLeft:
+    case k_tiltMotorFrontRight:
+    case k_tiltMotorBackLeft:
+    case k_tiltMotorBackRight:
     case k_elevon_left:
     case k_elevon_right:
     case k_vtail_left:
