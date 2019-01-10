@@ -349,6 +349,7 @@ bool QuadPlane::tiltrotor_fully_fwd(void)
  */
 void QuadPlane::tiltrotor_vectored_yaw(void)
 {
+    /* Original vectored yaw block
     // total angle the tilt can go through
     float total_angle = 90 + tilt.tilt_yaw_angle;
     // output value (0 to 1) to get motors pointed straight up
@@ -359,8 +360,6 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool no_yaw = (tilt.current_tilt > tilt_threshold);
-
-    /* Original vectored yaw block
     if (no_yaw) {
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorLeft,  1000 * base_output);
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorRight, 1000 * base_output);
@@ -374,6 +373,16 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     */
 
     // New vectored yaw block including elevon inputs
+    // total angle the tilt can go through
+    float total_angle = 90 + 2 * tilt.tilt_yaw_angle;
+    // output value (0 to 1) to get motors pointed straight up
+    float zero_out = tilt.tilt_yaw_angle / total_angle;
+
+    // calculate the basic tilt amount from current_tilt
+    float base_output = zero_out + (tilt.current_tilt * (1 - 2 * zero_out));
+    
+    float tilt_threshold = (tilt.max_angle_deg/90.0f);
+    bool no_yaw = (tilt.current_tilt > tilt_threshold);
     if (no_yaw) {
         float elevon_left = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_left);
         float elevon_right = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_right);
