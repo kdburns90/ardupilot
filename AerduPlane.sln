@@ -210,6 +210,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArduCopter", "ArduCopter", 
 		ArduCopter\wscript = ArduCopter\wscript
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AP_HAL", "AP_HAL", "{10AAD203-106E-4745-86B8-C24634C97875}"
+	ProjectSection(SolutionItems) = preProject
+		libraries\AP_HAL\AnalogIn.h = libraries\AP_HAL\AnalogIn.h
+		libraries\AP_HAL\AP_HAL.h = libraries\AP_HAL\AP_HAL.h
+		libraries\AP_HAL\AP_HAL_Boards.h = libraries\AP_HAL\AP_HAL_Boards.h
+		libraries\AP_HAL\AP_HAL_Macros.h = libraries\AP_HAL\AP_HAL_Macros.h
+		libraries\AP_HAL\AP_HAL_Main.h = libraries\AP_HAL\AP_HAL_Main.h
+		libraries\AP_HAL\AP_HAL_Namespace.h = libraries\AP_HAL\AP_HAL_Namespace.h
+		libraries\AP_HAL\CAN.h = libraries\AP_HAL\CAN.h
+		libraries\AP_HAL\Device.cpp = libraries\AP_HAL\Device.cpp
+		libraries\AP_HAL\Device.h = libraries\AP_HAL\Device.h
+		libraries\AP_HAL\GPIO.h = libraries\AP_HAL\GPIO.h
+		libraries\AP_HAL\HAL.cpp = libraries\AP_HAL\HAL.cpp
+		libraries\AP_HAL\HAL.h = libraries\AP_HAL\HAL.h
+		libraries\AP_HAL\I2CDevice.h = libraries\AP_HAL\I2CDevice.h
+		libraries\AP_HAL\OpticalFlow.h = libraries\AP_HAL\OpticalFlow.h
+		libraries\AP_HAL\RCInput.h = libraries\AP_HAL\RCInput.h
+		libraries\AP_HAL\RCOutput.h = libraries\AP_HAL\RCOutput.h
+		libraries\AP_HAL\Scheduler.cpp = libraries\AP_HAL\Scheduler.cpp
+		libraries\AP_HAL\Scheduler.h = libraries\AP_HAL\Scheduler.h
+		libraries\AP_HAL\Semaphores.h = libraries\AP_HAL\Semaphores.h
+		libraries\AP_HAL\SPIDevice.h = libraries\AP_HAL\SPIDevice.h
+		libraries\AP_HAL\Storage.h = libraries\AP_HAL\Storage.h
+		libraries\AP_HAL\system.h = libraries\AP_HAL\system.h
+		libraries\AP_HAL\UARTDriver.h = libraries\AP_HAL\UARTDriver.h
+		libraries\AP_HAL\Util.cpp = libraries\AP_HAL\Util.cpp
+		libraries\AP_HAL\Util.h = libraries\AP_HAL\Util.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -218,6 +247,7 @@ Global
 		{237DAD9C-96D7-4228-A400-70A9EFFE93BD} = {FF8E1147-F0CC-4B62-B736-2747B54F6430}
 		{40EFD5EC-1C17-4743-9621-95BC65FC8640} = {FF8E1147-F0CC-4B62-B736-2747B54F6430}
 		{B7347972-067A-4A53-9055-976845645C44} = {FF8E1147-F0CC-4B62-B736-2747B54F6430}
+		{10AAD203-106E-4745-86B8-C24634C97875} = {FF8E1147-F0CC-4B62-B736-2747B54F6430}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C40C301C-54C9-4FD1-B3E5-128952F5070C}
