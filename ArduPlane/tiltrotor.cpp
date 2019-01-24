@@ -387,7 +387,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         float elevon_left = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_left);
         float elevon_right = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_right);
         float elevon_range = zero_out;
-
+        
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output - elevon_right * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + elevon_left * elevon_range));
@@ -395,7 +395,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     } else {
         float yaw_out = motors->get_yaw();
         float yaw_range = zero_out;
-
+        // This is in aerduplane2 only
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * yaw_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * yaw_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * yaw_range));
