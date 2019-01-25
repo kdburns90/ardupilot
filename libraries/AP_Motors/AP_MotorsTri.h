@@ -47,7 +47,7 @@ public:
     // output a thrust to all motors that match a given motor
     // mask. This is used to control tiltrotor motors in forward
     // flight. Thrust is in the range 0 to 1
-    void                output_motor_mask(float thrust_Left, float thrust_Right uint8_t mask) override;
+    void                output_motor_mask(float thrust_Left, float thrust_Right, uint8_t mask) override;
     
 protected:
     // output - sends commands to the motors
