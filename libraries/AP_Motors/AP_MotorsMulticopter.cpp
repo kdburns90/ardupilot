@@ -607,7 +607,7 @@ void AP_MotorsMulticopter::output_motor_mask(float thrust, uint8_t mask)
         if (motor_enabled[i]) {
             int16_t motor_out;
             if (mask & (1U<<i)) {
-                motor_out = calc_thrust_to_pwm(thrust);
+                motor_out = calc_thrust_to_pwm(1);
             } else {
                 motor_out = get_pwm_output_min();
             }
