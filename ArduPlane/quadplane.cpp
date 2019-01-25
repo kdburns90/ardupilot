@@ -604,7 +604,7 @@ bool QuadPlane::setup(void)
         // setup tilt servos for vectored yaw
         SRV_Channels::set_range(SRV_Channel::k_tiltMotorLeft,  1000);
         SRV_Channels::set_range(SRV_Channel::k_tiltMotorRight, 1000);
-        // setup tilt servos for vectored yaw and elevon
+        // setup tilt servos for vectored yaw and elevon aerduplane
         SRV_Channels::set_range(SRV_Channel::k_tiltMotorFrontLeft,  1000);
         SRV_Channels::set_range(SRV_Channel::k_tiltMotorFrontRight, 1000);
         SRV_Channels::set_range(SRV_Channel::k_tiltMotorBackLeft,  1000);

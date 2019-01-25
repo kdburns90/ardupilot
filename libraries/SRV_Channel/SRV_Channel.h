@@ -121,10 +121,10 @@ public:
         k_dspoilerLeft2         = 86,           ///< differential spoiler 2 (left wing)
         k_dspoilerRight2        = 87,           ///< differential spoiler 2 (right wing)
         k_winch                 = 88,
-        k_tiltMotorFrontLeft    = 89,
-        k_tiltMotorFrontRight   = 90,
-        k_tiltMotorBackLeft     = 91,
-        k_tiltMotorBackRight    = 92,
+        k_tiltMotorFrontLeft    = 89,           ///< for aerduplane
+        k_tiltMotorFrontRight   = 90,           ///< for aerduplane
+        k_tiltMotorBackLeft     = 91,           ///< for aerduplane
+        k_tiltMotorBackRight    = 92,           ///< for aerduplane
         k_nr_aux_servo_functions         ///< This must be the last enum value (only add new values _before_ this one)
     } Aux_servo_function_t;
 
