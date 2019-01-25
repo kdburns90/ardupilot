@@ -66,7 +66,27 @@ void QuadPlane::tiltrotor_continuous_update(void)
         tiltrotor_slew(1);
 
         max_change = tilt_max_change(false);
-        
+        /* Original block
+        float new_throttle = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle)*0.01, 0, 1);
+        if (tilt.current_tilt < 1) {
+            tilt.current_throttle = constrain_float(new_throttle,
+                                                    tilt.current_throttle-max_change,
+                                                    tilt.current_throttle+max_change);
+        } else {
+            tilt.current_throttle = new_throttle;
+        }
+        if (!hal.util->get_soft_armed()) {
+            tilt.current_throttle = 0;
+        } else {
+            // the motors are all the way forward, start using them for fwd thrust
+            uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
+            motors->output_motor_mask(tilt.current_throttle, mask);
+            // prevent motor shutdown
+            tilt.motors_active = true;
+        }
+        */
+
+        //New block for aerduplane
         float new_throttle = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle)*0.01, 0, 1);
         if (tilt.current_tilt < 1) {
             tilt.current_throttle = constrain_float(new_throttle,
@@ -349,7 +369,7 @@ bool QuadPlane::tiltrotor_fully_fwd(void)
  */
 void QuadPlane::tiltrotor_vectored_yaw(void)
 {
-    /* Original vectored yaw block
+    /* Original block
     // total angle the tilt can go through
     float total_angle = 90 + tilt.tilt_yaw_angle;
     // output value (0 to 1) to get motors pointed straight up
@@ -372,7 +392,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     }
     */
 
-    // New vectored yaw block including elevon inputs
+    // New block for aerduplane
     // total angle the tilt can go through
     float total_angle = 90 + 2 * tilt.tilt_yaw_angle;
     // output value (0 to 1) to get motors pointed straight up
