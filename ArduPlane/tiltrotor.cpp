@@ -66,27 +66,7 @@ void QuadPlane::tiltrotor_continuous_update(void)
         tiltrotor_slew(1);
 
         max_change = tilt_max_change(false);
-        /* Original block
-        float new_throttle = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle)*0.01, 0, 1);
-        if (tilt.current_tilt < 1) {
-            tilt.current_throttle = constrain_float(new_throttle,
-                                                    tilt.current_throttle-max_change,
-                                                    tilt.current_throttle+max_change);
-        } else {
-            tilt.current_throttle = new_throttle;
-        }
-        if (!hal.util->get_soft_armed()) {
-            tilt.current_throttle = 0;
-        } else {
-            // the motors are all the way forward, start using them for fwd thrust
-            uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
-            motors->output_motor_mask(tilt.current_throttle, mask);
-            // prevent motor shutdown
-            tilt.motors_active = true;
-        }
-        */
-
-        //New block for aerduplane
+        
         float new_throttle = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle)*0.01, 0, 1);
         if (tilt.current_tilt < 1) {
             tilt.current_throttle = constrain_float(new_throttle,
@@ -412,6 +392,26 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output + elevon_right * elevon_range));
+
+        for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
+        if (motor_enabled[i]) {
+            uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
+            int16_t motor_out;
+            if (mask & (1U<<i)) {
+                if (i % 2 == 0){
+                    motor_out = calc_thrust_to_pwm(constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleLeft)*0.01, 0, 1));
+                }else{
+                    motor_out = calc_thrust_to_pwm(constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleRight)*0.01, 0, 1));
+                }
+            } else {
+                motor_out = get_pwm_output_min();
+            }
+            rc_write(i, motor_out);
+        }
+        // prevent motor shutdown
+        tilt.motors_active = true;
+    }
+
     } else {
         float yaw_out = motors->get_yaw();
         float yaw_range = zero_out;
