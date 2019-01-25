@@ -201,7 +201,8 @@ void QuadPlane::tiltrotor_binary_update(void)
         if (tilt.current_tilt >= 1) {
             uint8_t mask = is_zero(new_throttle)?0:(uint8_t)tilt.tilt_mask.get();
             // the motors are all the way forward, start using them for fwd thrust
-            motors->output_motor_mask(new_throttle, mask);
+            // aerduplane update
+            motors->output_motor_mask(new_throttle, new_throttle, mask);
         }
     } else {
         tiltrotor_binary_slew(false);
