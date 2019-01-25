@@ -392,24 +392,6 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output + elevon_right * elevon_range));
-
-        for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
-        if (motor_enabled[i]) {
-            uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
-            int16_t motor_out;
-            if (mask & (1U<<i)) {
-                if (i % 2 == 0){
-                    motor_out = calc_thrust_to_pwm(constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleLeft)*0.01, 0, 1));
-                }else{
-                    motor_out = calc_thrust_to_pwm(constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleRight)*0.01, 0, 1));
-                }
-            } else {
-                motor_out = get_pwm_output_min();
-            }
-            rc_write(i, motor_out);
-        }
-        // prevent motor shutdown
-        tilt.motors_active = true;
     }
 
     } else {
