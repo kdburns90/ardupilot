@@ -622,7 +622,7 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust
     for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
         if (motor_enabled[i]) {
             int16_t motor_out;
-            if (i % 2 == 0){
+            if (i == 1 || i == 2) {
                 if (mask & (1U<<i)) {
                     motor_out = calc_thrust_to_pwm(thrust_Left);
                 } else {
