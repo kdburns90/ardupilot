@@ -419,6 +419,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool no_yaw = (tilt.current_tilt > tilt_threshold);
     if (no_yaw) {
+        // must assign k_elevon_left and k_elevon_right to an unused servo function (eg. servo 15 and 16)
         float elevon_left = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_left);
         float elevon_right = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_right);
         float elevon_range = zero_out;
