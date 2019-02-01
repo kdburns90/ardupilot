@@ -358,6 +358,14 @@ const AP_Param::GroupInfo QuadPlane::var_info2[] = {
     // @Range: 1 5
     // @User: Standard
     AP_GROUPINFO("TAILSIT_THSCMX", 3, QuadPlane, tailsitter.throttle_scale_max, 5),
+
+    // @Param: TILT_MOTORS_LOCK
+    // @DisplayName: Tiltrotor lock tilt motors (for aerduplane)
+    // @Description: Allows you to lock tilt motors in vectored yaw VTOL mode to hold upward position: 0 = unlocked, 1 = locked
+    // @Increment: 1
+    // @Range: 0 1
+    // @User: Standard
+    AP_GROUPINFO("TILT_MOTORS_LOCK", 4, QuadPlane, tilt.motors_lock, 0),
 	
     AP_GROUPEND
 };
