@@ -379,7 +379,7 @@ private:
         AP_Int8  max_angle_deg;
         AP_Int8  tilt_type;
         AP_Float tilt_yaw_angle;
-        //AP_Int16 motors_lock;       // for aerduplane
+        AP_Int16 motors_lock;       // for aerduplane
         float current_tilt;
         float current_throttle;
         bool motors_active:1;
