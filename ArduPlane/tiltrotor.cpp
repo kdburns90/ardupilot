@@ -145,7 +145,8 @@ void QuadPlane::tiltrotor_continuous_update(void)
          to forward flight and should put the rotors all the way forward
     */
     if (plane.control_mode == QSTABILIZE ||
-        plane.control_mode == QHOVER) {
+        plane.control_mode == QHOVER ||
+        plane.control_mode == MANUAL) { //Added MANUAL for Motor Test only
         tiltrotor_slew(0);
         return;
     }
