@@ -43,7 +43,8 @@ void QuadPlane::tiltrotor_slew(float newtilt)
     tilt.current_tilt = constrain_float(newtilt, tilt.current_tilt-max_change, tilt.current_tilt+max_change);
 
     // translate to 0..1000 range and output
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 1000 * tilt.current_tilt);
+    // SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 1000 * tilt.current_tilt);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 0); // aerduplane motor test only
 
     // setup tilt compensation
     motors->set_thrust_compensation_callback(FUNCTOR_BIND_MEMBER(&QuadPlane::tilt_compensate, void, float *, uint8_t));
@@ -119,7 +120,6 @@ void QuadPlane::tiltrotor_continuous_update(void)
             // prevent motor shutdown
             tilt.motors_active = true;
         }
-        tiltrotor_slew(0); // aerduplane motor test only
         return;
     }
 
@@ -155,14 +155,14 @@ void QuadPlane::tiltrotor_continuous_update(void)
         transition_state >= TRANSITION_TIMER) {
         // we are transitioning to fixed wing - tilt the motors all
         // the way forward
-        tiltrotor_slew(0); // aerduplane motor test only
+        tiltrotor_slew(1);
     } else {
         // until we have completed the transition we limit the tilt to
         // Q_TILT_MAX. Anything above 50% throttle gets
         // Q_TILT_MAX. Below 50% throttle we decrease linearly. This
         // relies heavily on Q_VFWD_GAIN being set appropriately.
-        // float settilt = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) / 50.0f, 0, 1);
-        tiltrotor_slew(0);// aerduplane motor test only
+        float settilt = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) / 50.0f, 0, 1);
+        tiltrotor_slew(settilt * tilt.max_angle_deg / 90.0f);
     }
 }
 
