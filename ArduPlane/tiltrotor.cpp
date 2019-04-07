@@ -39,6 +39,8 @@ float QuadPlane::tilt_max_change(bool up)
  */
 void QuadPlane::tiltrotor_slew(float newtilt)
 {
+    newtilt = 0; // aerduplane motor test only
+    
     float max_change = tilt_max_change(newtilt<tilt.current_tilt);
     tilt.current_tilt = constrain_float(newtilt, tilt.current_tilt-max_change, tilt.current_tilt+max_change);
 
@@ -163,9 +165,6 @@ void QuadPlane::tiltrotor_continuous_update(void)
         float settilt = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) / 50.0f, 0, 1);
         tiltrotor_slew(settilt * tilt.max_angle_deg / 90.0f);
     }
-
-    tiltrotor_slew(0); // Added for aerduplane motor test only
-
 }
 
 
