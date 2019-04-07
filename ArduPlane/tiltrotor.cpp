@@ -43,8 +43,7 @@ void QuadPlane::tiltrotor_slew(float newtilt)
     tilt.current_tilt = constrain_float(newtilt, tilt.current_tilt-max_change, tilt.current_tilt+max_change);
 
     // translate to 0..1000 range and output
-    // SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 1000 * tilt.current_tilt);
-    SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 0); // aerduplane motor test only
+    SRV_Channels::set_output_scaled(SRV_Channel::k_motor_tilt, 1000 * tilt.current_tilt);
 
     // setup tilt compensation
     motors->set_thrust_compensation_callback(FUNCTOR_BIND_MEMBER(&QuadPlane::tilt_compensate, void, float *, uint8_t));
@@ -415,7 +414,8 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     float zero_out = tilt.tilt_yaw_angle / total_angle;
 
     // calculate the basic tilt amount from current_tilt
-    float base_output = zero_out + (tilt.current_tilt * (1 - 2 * zero_out));
+    // float base_output = zero_out + (tilt.current_tilt * (1 - 2 * zero_out));
+    float base_output = zero_out; // aerduplane motor test only
     
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool no_yaw = (tilt.current_tilt > tilt_threshold);
