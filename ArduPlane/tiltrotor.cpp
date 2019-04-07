@@ -145,8 +145,7 @@ void QuadPlane::tiltrotor_continuous_update(void)
          to forward flight and should put the rotors all the way forward
     */
     if (plane.control_mode == QSTABILIZE ||
-        plane.control_mode == QHOVER ||
-        plane.control_mode == MANUAL) { //Added MANUAL for Motor Test only
+        plane.control_mode == QHOVER) {
         tiltrotor_slew(0);
         return;
     }
@@ -164,6 +163,9 @@ void QuadPlane::tiltrotor_continuous_update(void)
         float settilt = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) / 50.0f, 0, 1);
         tiltrotor_slew(settilt * tilt.max_angle_deg / 90.0f);
     }
+
+    tiltrotor_slew(0); // Added for aerduplane motor test only
+
 }
 
 
