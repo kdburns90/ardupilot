@@ -483,6 +483,8 @@ void Plane::servo_output_mixers(void)
 /*
   support for twin-engine planes
  */
+
+ /*
 void Plane::servos_twin_engine_mix(void)
 {
     float throttle = SRV_Channels::get_output_scaled(SRV_Channel::k_throttle);
@@ -506,6 +508,48 @@ void Plane::servos_twin_engine_mix(void)
         // doing forward thrust
         throttle_left  = constrain_float(throttle + 50 * rudder, 0, 100);
         throttle_right = constrain_float(throttle - 50 * rudder, 0, 100);
+    }
+    if (!hal.util->get_soft_armed()) {
+        if (arming.arming_required() == AP_Arming::YES_ZERO_PWM) {
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+        } else {
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, 0);
+        }
+    } else {
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, throttle_left);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, throttle_right);
+    }
+}
+*/
+
+// New block for aerdupilot4
+void Plane::servos_twin_engine_mix(void)
+{
+    float throttle = SRV_Channels::get_output_scaled(SRV_Channel::k_throttle);
+    float rud_gain = float(plane.g2.rudd_dt_gain) / 100;
+    float left_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_elevon_left) / float(SERVO_MAX);
+    float right_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_elevon_right) / float(SERVO_MAX);
+
+    if (afs.should_crash_vehicle()) {
+        // when in AFS failsafe force rudder input for differential thrust to zero
+        left_elevon = 0;
+        right_elevon = 0;
+    }
+
+    float throttle_left, throttle_right;
+
+    if (throttle < 0 && aparm.throttle_min < 0) {
+        // doing reverse thrust
+        throttle_left  = constrain_float(throttle + 50 * left_elevon, -100, 0);
+        throttle_right = constrain_float(throttle + 50 * right_elevon, -100, 0);
+    } else if (throttle <= 0) {
+        throttle_left  = throttle_right = 0;
+    } else {
+        // doing forward thrust
+        throttle_left  = constrain_float(throttle + 50 * left_elevon, 0, 100);
+        throttle_right = constrain_float(throttle + 50 * right_elevon, 0, 100);
     }
     if (!hal.util->get_soft_armed()) {
         if (arming.arming_required() == AP_Arming::YES_ZERO_PWM) {
