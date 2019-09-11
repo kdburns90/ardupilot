@@ -654,14 +654,15 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust
                 } else {
                     motor_out = get_pwm_output_min();
                 }
+                rc_write(i, motor_out);
             } else if (i == 0){
                 if (mask & (1U<<i)) {
                     motor_out = calc_thrust_to_pwm(thrust_Right);
                 } else {
                     motor_out = get_pwm_output_min();
                 }
+                rc_write(i, motor_out);
             }
-            rc_write(i, motor_out);
         }
     }
 }
