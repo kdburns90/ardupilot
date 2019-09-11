@@ -542,14 +542,14 @@ void Plane::servos_twin_engine_mix(void)
 
     if (throttle < 0 && aparm.throttle_min < 0) {
         // doing reverse thrust
-        throttle_left  = constrain_float(throttle + 50 * left_elevon, -100, 0);
-        throttle_right = constrain_float(throttle + 50 * right_elevon, -100, 0);
+        throttle_left  = constrain_float(throttle + 50 * right_elevon, -100, 0);
+        throttle_right = constrain_float(throttle + 50 * left_elevon, -100, 0);
     } else if (throttle <= 0) {
         throttle_left  = throttle_right = 0;
     } else {
         // doing forward thrust
-        throttle_left  = constrain_float(throttle + 50 * left_elevon, 0, 100);
-        throttle_right = constrain_float(throttle + 50 * right_elevon, 0, 100);
+        throttle_left  = constrain_float(throttle + 50 * right_elevon, 0, 100);
+        throttle_right = constrain_float(throttle + 50 * left_elevon, 0, 100);
     }
     if (!hal.util->get_soft_armed()) {
         if (arming.arming_required() == AP_Arming::YES_ZERO_PWM) {
