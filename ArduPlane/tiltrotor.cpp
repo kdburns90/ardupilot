@@ -91,6 +91,7 @@ void QuadPlane::tiltrotor_continuous_update(void)
         float new_throttle_Right = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleRight)*0.01, 0, 1);
         float current_throttle_Left;
         float current_throttle_Right;
+        float current_throttle;
         if (tilt.current_tilt < 1) {
             tilt.current_throttle = constrain_float(new_throttle,
                                                     tilt.current_throttle-max_change,
@@ -103,20 +104,26 @@ void QuadPlane::tiltrotor_continuous_update(void)
             current_throttle_Right = constrain_float(new_throttle_Right,
                                                     tilt.current_throttle-max_change,
                                                     tilt.current_throttle+max_change);
+
+            current_throttle = constrain_float(new_throttle,
+                                                    tilt.current_throttle-max_change,
+                                                    tilt.current_throttle+max_change);
         } else {
             tilt.current_throttle = new_throttle;
             current_throttle_Left = new_throttle_Left;
             current_throttle_Right = new_throttle_Right;
+            current_throttle = new_throttle;
         }
         if (!hal.util->get_soft_armed()) {
             tilt.current_throttle = 0;
             current_throttle_Left = 0;
             current_throttle_Right = 0;
+            current_throttle = 0;
         } else {
             // the motors are all the way forward, start using them for fwd thrust
             uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
-            //motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, tilt.current_throttle, mask);
-            motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, tilt.current_throttle, mask);
+            //motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, mask);
+            motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, current_throttle, mask);
             // prevent motor shutdown
             tilt.motors_active = true;
         }
