@@ -660,12 +660,6 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust
                 } else {
                     motor_out = get_pwm_output_min();
                 }
-            } else{
-                if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(tilt.current_throttle);
-                } else {
-                    motor_out = get_pwm_output_min();
-                }
             }
             rc_write(i, motor_out);
         }
