@@ -115,7 +115,8 @@ void QuadPlane::tiltrotor_continuous_update(void)
         } else {
             // the motors are all the way forward, start using them for fwd thrust
             uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
-            motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, mask);
+            //motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, tilt.current_throttle, mask);
+            motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, tilt.current_throttle, mask);
             // prevent motor shutdown
             tilt.motors_active = true;
         }

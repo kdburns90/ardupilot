@@ -643,7 +643,7 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust
 */
 
 //New block for aerduplane4
-void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust_Right, uint8_t mask)
+void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust_Right, float thrust_Nue, uint8_t mask)
 {
     for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
         if (motor_enabled[i]) {
@@ -654,15 +654,20 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust
                 } else {
                     motor_out = get_pwm_output_min();
                 }
-                rc_write(i, motor_out);
             } else if (i == 0){
                 if (mask & (1U<<i)) {
                     motor_out = calc_thrust_to_pwm(thrust_Right);
                 } else {
                     motor_out = get_pwm_output_min();
                 }
-                rc_write(i, motor_out);
+            } else{
+                if (mask & (1U<<i)) {
+                    motor_out = calc_thrust_to_pwm(thrust_Nue);
+                } else {
+                    motor_out = get_pwm_output_min();
+                }
             }
+            rc_write(i, motor_out);
         }
     }
 }
