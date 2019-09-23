@@ -555,7 +555,10 @@ void Plane::servos_twin_engine_mix(void)
         throttle_backleft  = constrain_float(throttle - 50 * left_elevon, -100, 0);
         throttle_backright = constrain_float(throttle - 50 * right_elevon, -100, 0);
     } else if (throttle <= 0) {
-        throttle_left  = throttle_right = 0;
+        throttle_frontleft  = 0;
+        throttle_frontright = 0;
+        throttle_backleft  = 0;
+        throttle_backright = 0;
     } else {
         // doing forward thrust
         throttle_frontleft  = constrain_float(throttle + 50 * right_elevon, 0, 100);
