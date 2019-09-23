@@ -640,7 +640,7 @@ void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_frontLeft, float t
                 } else {
                     motor_out = get_pwm_output_min();
                 }
-            } else if (i == 3){
+            } else{
                 if (mask & (1U<<i)) {
                     motor_out = calc_thrust_to_pwm(thrust_backRight);
                 } else {
