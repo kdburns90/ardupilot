@@ -87,36 +87,51 @@ void QuadPlane::tiltrotor_continuous_update(void)
         */
         // New block for aerduplane
         float new_throttle = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttle)*0.01, 0, 1);
-        float new_throttle_Left = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleLeft)*0.01, 0, 1);
-        float new_throttle_Right = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleRight)*0.01, 0, 1);
-        float current_throttle_Left;
-        float current_throttle_Right;
+        float new_throttle_frontLeft = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleFrontLeft)*0.01, 0, 1);
+        float new_throttle_frontRight = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleFrontRight)*0.01, 0, 1);
+        float new_throttle_backLeft = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleBackLeft)*0.01, 0, 1);
+        float new_throttle_backRight = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleBackRight)*0.01, 0, 1);
+        float current_throttle_frontLeft;
+        float current_throttle_frontRight;
+        float current_throttle_backLeft;
+        float current_throttle_backRight;
         if (tilt.current_tilt < 1) {
             tilt.current_throttle = constrain_float(new_throttle,
                                                     tilt.current_throttle-max_change,
                                                     tilt.current_throttle+max_change);
             
-            current_throttle_Left = constrain_float(new_throttle_Left,
+            current_throttle_frontLeft = constrain_float(new_throttle_frontLeft,
                                                     tilt.current_throttle-max_change,
                                                     tilt.current_throttle+max_change);
 
-            current_throttle_Right = constrain_float(new_throttle_Right,
+            current_throttle_frontRight = constrain_float(new_throttle_frontRight,
+                                                    tilt.current_throttle-max_change,
+                                                    tilt.current_throttle+max_change);
+
+            current_throttle_backLeft = constrain_float(new_throttle_backLeft,
+                                                    tilt.current_throttle-max_change,
+                                                    tilt.current_throttle+max_change);
+
+            current_throttle_backRight = constrain_float(new_throttle_backRight,
                                                     tilt.current_throttle-max_change,
                                                     tilt.current_throttle+max_change);
         } else {
             tilt.current_throttle = new_throttle;
-            current_throttle_Left = new_throttle_Left;
-            current_throttle_Right = new_throttle_Right;
+            current_throttle_frontLeft = new_throttle_frontLeft;
+            current_throttle_frontRight = new_throttle_frontRight;
+            current_throttle_backLeft = new_throttle_backLeft;
+            current_throttle_backRight = new_throttle_backRight;
         }
         if (!hal.util->get_soft_armed()) {
             tilt.current_throttle = 0;
-            current_throttle_Left = 0;
-            current_throttle_Right = 0;
+            current_throttle_frontLeft = 0;
+            current_throttle_frontRight = 0;
+            current_throttle_backLeft = 0;
+            current_throttle_backRight = 0;
         } else {
             // the motors are all the way forward, start using them for fwd thrust
             uint8_t mask = is_zero(tilt.current_throttle)?0:(uint8_t)tilt.tilt_mask.get();
-            //motors->output_motor_mask_aer(current_throttle_Left, current_throttle_Right, mask);
-            motors->output_motor_mask_aer2(current_throttle_Left, current_throttle_Right, tilt.current_throttle, mask);
+            motors->output_motor_mask_aer(current_throttle_frontLeft, current_throttle_frontRight, current_throttle_backLeft, current_throttle_backRight, mask);
             // prevent motor shutdown
             tilt.motors_active = true;
         }

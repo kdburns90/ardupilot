@@ -31,11 +31,20 @@ void AP_AdvancedFailsafe_Plane::terminate_vehicle(void)
             SRV_Channels::set_output_limit(SRV_Channel::k_throttle, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
         } else {
             // use MIN
             SRV_Channels::set_output_limit(SRV_Channel::k_throttle, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+
         }
         SRV_Channels::set_output_limit(SRV_Channel::k_manual, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
         SRV_Channels::set_output_limit(SRV_Channel::k_none, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
@@ -62,11 +71,19 @@ void AP_AdvancedFailsafe_Plane::setup_IO_failsafe(void)
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttle, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);    ///< for aerduplane
     } else {
         // normal throttle, use MIN
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttle, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
         SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
+        SRV_Channels::set_failsafe_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_MIN);    ///< for aerduplane
     }
     SRV_Channels::set_failsafe_limit(SRV_Channel::k_manual, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
     SRV_Channels::set_failsafe_limit(SRV_Channel::k_none, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);

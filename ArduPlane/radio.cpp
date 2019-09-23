@@ -32,6 +32,10 @@ void Plane::set_control_channels(void)
         SRV_Channels::set_angle(SRV_Channel::k_throttle, 100);
         SRV_Channels::set_angle(SRV_Channel::k_throttleLeft, 100);
         SRV_Channels::set_angle(SRV_Channel::k_throttleRight, 100);
+        SRV_Channels::set_angle(SRV_Channel::k_throttleFrontLeft, 100);    ///< for aerduplane
+        SRV_Channels::set_angle(SRV_Channel::k_throttleFrontRight, 100);    ///< for aerduplane
+        SRV_Channels::set_angle(SRV_Channel::k_throttleBackLeft, 100);    ///< for aerduplane
+        SRV_Channels::set_angle(SRV_Channel::k_throttleBackRight, 100);    ///< for aerduplane
     }
 
     if (!arming.is_armed() && arming.arming_required() == AP_Arming::YES_MIN_PWM) {

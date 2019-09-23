@@ -87,10 +87,7 @@ public:
     virtual void        output_motor_mask(float thrust, uint8_t mask);
 
     // for aerduplane
-    //virtual void        output_motor_mask_aer(float thrust_Left, float thrust_Right, uint8_t mask);
-
-    // for aerduplane4
-    virtual void        output_motor_mask_aer2(float thrust_Left, float thrust_Right, float thrust_Normal, uint8_t mask);
+    virtual void        output_motor_mask_aer(float thrust_frontLeft, float thrust_frontRight, float thrust_backLeft, float thrust_backRight, uint8_t mask);
 
     // get minimum or maximum pwm value that can be output to motors
     int16_t             get_pwm_output_min() const;

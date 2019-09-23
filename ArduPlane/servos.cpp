@@ -350,10 +350,18 @@ void Plane::set_servos_controlled(void)
             SRV_Channels::set_output_limit(SRV_Channel::k_throttle, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
             SRV_Channels::set_output_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);    ///< for aerduplane
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);    ///< for aerduplane
         } else {
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0);
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, 0);
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontRight, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackRight, 0);    ///< for aerduplane
         }
     } else if (suppress_throttle()) {
         // throttle is suppressed in auto mode
@@ -524,7 +532,7 @@ void Plane::servos_twin_engine_mix(void)
 }
 */
 
-// New block for aerdupilot4
+// New block for aerduplane
 void Plane::servos_twin_engine_mix(void)
 {
     float throttle = SRV_Channels::get_output_scaled(SRV_Channel::k_throttle);
@@ -538,30 +546,40 @@ void Plane::servos_twin_engine_mix(void)
         right_elevon = 0;
     }
 
-    float throttle_left, throttle_right;
+    float throttle_frontleft, throttle_frontright, throttle_backleft, throttle_backright;
 
     if (throttle < 0 && aparm.throttle_min < 0) {
         // doing reverse thrust
-        throttle_left  = constrain_float(throttle + 50 * right_elevon, -100, 0);
-        throttle_right = constrain_float(throttle + 50 * left_elevon, -100, 0);
+        throttle_frontleft  = constrain_float(throttle + 50 * right_elevon, -100, 0);
+        throttle_frontright = constrain_float(throttle + 50 * left_elevon, -100, 0);
+        throttle_backleft  = constrain_float(throttle - 50 * left_elevon, -100, 0);
+        throttle_backright = constrain_float(throttle - 50 * right_elevon, -100, 0);
     } else if (throttle <= 0) {
         throttle_left  = throttle_right = 0;
     } else {
         // doing forward thrust
-        throttle_left  = constrain_float(throttle + 50 * right_elevon, 0, 100);
-        throttle_right = constrain_float(throttle + 50 * left_elevon, 0, 100);
+        throttle_frontleft  = constrain_float(throttle + 50 * right_elevon, 0, 100);
+        throttle_frontright = constrain_float(throttle + 50 * left_elevon, 0, 100);
+        throttle_backleft  = constrain_float(throttle - 50 * left_elevon, 0, 100);
+        throttle_backright = constrain_float(throttle - 50 * right_elevon, 0, 100);
     }
     if (!hal.util->get_soft_armed()) {
         if (arming.arming_required() == AP_Arming::YES_ZERO_PWM) {
-            SRV_Channels::set_output_limit(SRV_Channel::k_throttleLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
-            SRV_Channels::set_output_limit(SRV_Channel::k_throttleRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleFrontRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackLeft, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+            SRV_Channels::set_output_limit(SRV_Channel::k_throttleBackRight, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
         } else {
-            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, 0);
-            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontLeft, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontRight, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackLeft, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackRight, 0);
         }
     } else {
-        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, throttle_left);
-        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, throttle_right);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontLeft, throttle_frontleft);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontRight, throttle_frontright);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackLeft, throttle_backleft);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackRight, throttle_backright);
     }
 }
 
@@ -659,6 +677,10 @@ void Plane::set_servos(void)
             SRV_Channels::set_output_pwm(SRV_Channel::k_throttle, 0);
             SRV_Channels::set_output_pwm(SRV_Channel::k_throttleLeft, 0);
             SRV_Channels::set_output_pwm(SRV_Channel::k_throttleRight, 0);
+            SRV_Channels::set_output_pwm(SRV_Channel::k_throttleFrontLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_pwm(SRV_Channel::k_throttleFrontRight, 0);    ///< for aerduplane
+            SRV_Channels::set_output_pwm(SRV_Channel::k_throttleBackLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_pwm(SRV_Channel::k_throttleBackRight, 0);    ///< for aerduplane
             break;
 
         case AP_Arming::YES_MIN_PWM:
@@ -666,6 +688,10 @@ void Plane::set_servos(void)
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0);
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttleLeft, 0);
             SRV_Channels::set_output_scaled(SRV_Channel::k_throttleRight, 0);
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleFrontRight, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackLeft, 0);    ///< for aerduplane
+            SRV_Channels::set_output_scaled(SRV_Channel::k_throttleBackRight, 0);    ///< for aerduplane
             break;
         }
     }

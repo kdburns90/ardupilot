@@ -125,6 +125,10 @@ public:
         k_tiltMotorFrontRight   = 90,           ///< for aerduplane
         k_tiltMotorBackLeft     = 91,           ///< for aerduplane
         k_tiltMotorBackRight    = 92,           ///< for aerduplane
+        k_throttleFrontLeft    = 93,           ///< for aerduplane
+        k_throttleFrontRight   = 94,           ///< for aerduplane
+        k_throttleBackLeft     = 95,           ///< for aerduplane
+        k_throttleBackRight    = 96,           ///< for aerduplane
         k_nr_aux_servo_functions         ///< This must be the last enum value (only add new values _before_ this one)
     } Aux_servo_function_t;
 

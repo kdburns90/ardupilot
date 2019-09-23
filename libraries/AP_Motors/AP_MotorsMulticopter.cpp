@@ -617,52 +617,32 @@ void AP_MotorsMulticopter::output_motor_mask(float thrust, uint8_t mask)
 }
 
 //New block for aerduplane
-/*
-void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_Left, float thrust_Right, uint8_t mask)
-{
-    for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
-        if (motor_enabled[i]) {
-            int16_t motor_out;
-            if (i == 1 || i == 2) {
-                if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(thrust_Left);
-                } else {
-                    motor_out = get_pwm_output_min();
-                }
-            } else{
-                if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(thrust_Right);
-                } else {
-                    motor_out = get_pwm_output_min();
-                }
-            }
-            rc_write(i, motor_out);
-        }
-    }
-}
-*/
-
-//New block for aerduplane4
-void AP_MotorsMulticopter::output_motor_mask_aer2(float thrust_Left, float thrust_Right, float thrust_Normal, uint8_t mask)
+void AP_MotorsMulticopter::output_motor_mask_aer(float thrust_frontLeft, float thrust_frontRight, float thrust_backLeft, float thrust_backRight, uint8_t mask)
 {
     for (uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
         if (motor_enabled[i]) {
             int16_t motor_out;
             if (i == 2) {
                 if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(thrust_Left);
+                    motor_out = calc_thrust_to_pwm(thrust_frontLeft);
                 } else {
                     motor_out = get_pwm_output_min();
                 }
             } else if (i == 0){
                 if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(thrust_Right);
+                    motor_out = calc_thrust_to_pwm(thrust_frontRight);
                 } else {
                     motor_out = get_pwm_output_min();
                 }
-            } else{
+            } else if (i == 1){
                 if (mask & (1U<<i)) {
-                    motor_out = calc_thrust_to_pwm(thrust_Normal);
+                    motor_out = calc_thrust_to_pwm(thrust_backLeft);
+                } else {
+                    motor_out = get_pwm_output_min();
+                }
+            } else if (i == 3){
+                if (mask & (1U<<i)) {
+                    motor_out = calc_thrust_to_pwm(thrust_backRight);
                 } else {
                     motor_out = get_pwm_output_min();
                 }
