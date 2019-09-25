@@ -537,8 +537,8 @@ void Plane::servos_twin_engine_mix(void)
 {
     float throttle = SRV_Channels::get_output_scaled(SRV_Channel::k_throttle);
     float rud_gain = float(plane.g2.rudd_dt_gain) / 100;
-    float left_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_elevon_left) / float(SERVO_MAX);
-    float right_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_elevon_right) / float(SERVO_MAX);
+    float left_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_vtail_left) / float(SERVO_MAX);
+    float right_elevon = rud_gain * SRV_Channels::get_output_scaled(SRV_Channel::k_vtail_right) / float(SERVO_MAX);
 
     if (afs.should_crash_vehicle()) {
         // when in AFS failsafe force rudder input for differential thrust to zero
