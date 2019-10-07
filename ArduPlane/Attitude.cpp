@@ -40,6 +40,9 @@ float Plane::get_speed_scaler(void)
         // This case is constrained tighter as we don't have real speed info
         speed_scaler = constrain_float(speed_scaler, 0.6f, 1.67f);
     }
+
+    speed_scaler = 1.00f; // for aerduplane
+
     return speed_scaler;
 }
 
