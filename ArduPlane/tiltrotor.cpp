@@ -283,8 +283,6 @@ void QuadPlane::tilt_compensate_down(float *thrust, uint8_t num_motors)
         inv_tilt_factor = 1.0 / cosf(radians(tilt.current_tilt*90));
     }
 
-    inv_tilt_factor = 1.0f; // for aerduplane
-
     // when we got past Q_TILT_MAX we gang the tilted motors together
     // to generate equal thrust. This makes them act as a single pitch
     // control motor while preventing them trying to do roll and yaw
@@ -292,8 +290,6 @@ void QuadPlane::tilt_compensate_down(float *thrust, uint8_t num_motors)
     // of the last phase of transitions
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool equal_thrust = (tilt.current_tilt > tilt_threshold);
-
-    equal_thrust = false; // for aerduplane
 
     float tilt_total = 0;
     uint8_t tilt_count = 0;
@@ -348,8 +344,6 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool equal_thrust = (tilt.current_tilt > tilt_threshold);
 
-    equal_thrust = false; // for aerduplane
-
     float tilt_total = 0;
     uint8_t tilt_count = 0;
     
@@ -380,6 +374,9 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
  */
 void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
 {
+
+    return; // for aerduplane
+
     if (tilt.current_tilt <= 0) {
         // the motors are not tilted, no compensation needed
         return;
