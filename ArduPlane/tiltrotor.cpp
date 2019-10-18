@@ -27,7 +27,7 @@ float QuadPlane::tilt_max_change(bool up)
         }
         if (fast_tilt) {
             // allow a minimum of 90 DPS in manual or if we are not
-            // stabilising, to give fast control
+            // stabilizing, to give fast control
             rate = MAX(rate, 90);
         }
     }
@@ -91,30 +91,30 @@ void QuadPlane::tiltrotor_continuous_update(void)
         float new_throttle_frontRight = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleFrontRight)*0.01, 0, 1);
         float new_throttle_backLeft = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleBackLeft)*0.01, 0, 1);
         float new_throttle_backRight = constrain_float(SRV_Channels::get_output_scaled(SRV_Channel::k_throttleBackRight)*0.01, 0, 1);
-        float current_throttle_frontLeft;
-        float current_throttle_frontRight;
-        float current_throttle_backLeft;
-        float current_throttle_backRight;
+        float current_throttle_frontLeft = tilt.current_throttle;
+        float current_throttle_frontRight = tilt.current_throttle;
+        float current_throttle_backLeft = tilt.current_throttle;
+        float current_throttle_backRight = tilt.current_throttle;
         if (tilt.current_tilt < 1) {
             tilt.current_throttle = constrain_float(new_throttle,
                                                     tilt.current_throttle-max_change,
                                                     tilt.current_throttle+max_change);
             
             current_throttle_frontLeft = constrain_float(new_throttle_frontLeft,
-                                                    tilt.current_throttle-max_change,
-                                                    tilt.current_throttle+max_change);
+                                                    current_throttle_frontLeft-max_change,
+                                                    current_throttle_frontLeft+max_change);
 
             current_throttle_frontRight = constrain_float(new_throttle_frontRight,
-                                                    tilt.current_throttle-max_change,
-                                                    tilt.current_throttle+max_change);
+                                                    current_throttle_frontRight-max_change,
+                                                    current_throttle_frontRight+max_change);
 
             current_throttle_backLeft = constrain_float(new_throttle_backLeft,
-                                                    tilt.current_throttle-max_change,
-                                                    tilt.current_throttle+max_change);
+                                                    current_throttle_backLeft-max_change,
+                                                    current_throttle_backLeft+max_change);
 
             current_throttle_backRight = constrain_float(new_throttle_backRight,
-                                                    tilt.current_throttle-max_change,
-                                                    tilt.current_throttle+max_change);
+                                                    current_throttle_backRight-max_change,
+                                                    current_throttle_backRight+max_change);
         } else {
             tilt.current_throttle = new_throttle;
             current_throttle_frontLeft = new_throttle_frontLeft;
@@ -291,6 +291,9 @@ void QuadPlane::tilt_compensate_down(float *thrust, uint8_t num_motors)
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool equal_thrust = (tilt.current_tilt > tilt_threshold);
 
+    inv_tilt_factor = 1.0f; // for aerduplane
+    equal_thrust = false; // for aerduplane
+
     float tilt_total = 0;
     uint8_t tilt_count = 0;
     
@@ -344,6 +347,9 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool equal_thrust = (tilt.current_tilt > tilt_threshold);
 
+    tilt_factor = 1.0f; // for aerduplane
+    equal_thrust = false; // for aerduplane
+
     float tilt_total = 0;
     uint8_t tilt_count = 0;
     
@@ -374,9 +380,6 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
  */
 void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
 {
-
-    return; // for aerduplane
-
     if (tilt.current_tilt <= 0) {
         // the motors are not tilted, no compensation needed
         return;
