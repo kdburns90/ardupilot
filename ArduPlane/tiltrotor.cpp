@@ -321,12 +321,16 @@ void QuadPlane::tilt_compensate_down(float *thrust, uint8_t num_motors)
     // if we are saturating one of the tilted motors then reduce all
     // motors to keep them in proportion to the original thrust. This
     // helps maintain stability when tilted at a large angle
+
+    // commented out for aerduplane
+    /*
     if (largest_tilted > 1.0f) {
         float scale = 1.0f / largest_tilted;
         for (uint8_t i=0; i<num_motors; i++) {
             thrust[i] *= scale;
         }
     }
+    */
 }
 
 
