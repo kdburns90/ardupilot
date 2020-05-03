@@ -443,7 +443,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     
     float tilt_threshold = (tilt.max_angle_deg/90.0f);
     bool no_yaw = (tilt.current_tilt > tilt_threshold);
-    if (no_yaw) {
+    if (no_yaw) { // forward flight
         // must assign k_elevon_left and k_elevon_right to an unused servo function (eg. servo 15 and 16)
         float elevon_left = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_left);
         float elevon_right = SRV_Channels::get_output_norm(SRV_Channel::k_elevon_right);
@@ -453,15 +453,17 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + elevon_left * elevon_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output + elevon_right * elevon_range));
-    } else {
+    } else { // hover
         float yaw_out = motors->get_yaw();
+        float pitch_out = motors->get_pitch();
         motors->set_yaw(0);
+        motors->set_pitch(0);
         motors->output();
         float yaw_range = zero_out;
         
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * yaw_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * yaw_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * yaw_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * yaw_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * yaw_range - pitch_out * yaw_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * yaw_range - pitch_out * yaw_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * yaw_range - pitch_out * yaw_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * yaw_range - pitch_out * yaw_range));
     }
 }
