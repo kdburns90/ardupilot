@@ -459,17 +459,13 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         motors->set_yaw(0);
         motors->set_pitch(0);
         motors->output();
-        float maneuver_range = zero_out;
+        float pitch_range = zero_out;
 
-        // angular velocity about yaw
-        // gyro_latest.z
+        float yaw_range = zero_out - fabs(pitch_out * pitch_range);
         
-        // yaw stick position
-        // channel_yaw->get_control_in()
-        
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * maneuver_range - pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * maneuver_range - pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * maneuver_range - pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * maneuver_range - pitch_out * maneuver_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * yaw_range - pitch_out * pitch_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * yaw_range - pitch_out * pitch_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * yaw_range - pitch_out * pitch_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * yaw_range - pitch_out * pitch_range));
     }
 }
