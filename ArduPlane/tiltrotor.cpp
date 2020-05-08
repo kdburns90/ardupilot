@@ -458,7 +458,16 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         float pitch_out = plane.channel_pitch->norm_input();;
         motors->set_yaw(0);
         motors->output();
+
         float maneuver_range = zero_out;
+
+        if ((fabsf(yaw_out) + fabsf(pitch_out)) > 1.0){
+
+            float aer_scalar1 = 1.0 / (fabsf(yaw_out) + fabsf(pitch_out));
+
+            maneuver_range *= aer_scalar1;
+        
+        }
         
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * maneuver_range + pitch_out * maneuver_range));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * maneuver_range + pitch_out * maneuver_range));
