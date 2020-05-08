@@ -469,9 +469,9 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         
         }
         
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * maneuver_range + pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * maneuver_range + pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * maneuver_range + pitch_out * maneuver_range));
-        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * maneuver_range + pitch_out * maneuver_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontLeft,  1000 * (base_output + yaw_out * maneuver_range - pitch_out * maneuver_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorFrontRight, 1000 * (base_output - yaw_out * maneuver_range - pitch_out * maneuver_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackLeft,  1000 * (base_output + yaw_out * maneuver_range - pitch_out * maneuver_range));
+        SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output - yaw_out * maneuver_range - pitch_out * maneuver_range));
     }
 }
