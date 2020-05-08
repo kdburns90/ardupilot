@@ -1,4 +1,5 @@
 #include "Plane.h"
+#include "Copter.h"
 
 /*
   control code for tiltrotors and tiltwings. Enabled by setting
