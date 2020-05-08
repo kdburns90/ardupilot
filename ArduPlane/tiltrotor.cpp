@@ -463,7 +463,7 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
 
         // angular velocity about yaw
         // gyro_latest.z
-
+        // this one is F
         // yaw stick position
         // channel_yaw->get_control_in()
         
