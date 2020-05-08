@@ -455,15 +455,15 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output + elevon_right * elevon_range));
     } else { // hover
         float yaw_out = motors->get_yaw();
-        float pitch_out = 0; //motors->get_pitch();
+        float pitch_out = motors->get_pitch();
         motors->set_yaw(0);
-        // motors->set_pitch(0);
+        motors->set_pitch(0);
         motors->output();
         float yaw_range = zero_out;
 
         // angular velocity about yaw
         // gyro_latest.z
-        // this one is F
+        
         // yaw stick position
         // channel_yaw->get_control_in()
         
