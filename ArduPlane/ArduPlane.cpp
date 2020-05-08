@@ -649,7 +649,7 @@ void Plane::update_flight_mode(void)
         int16_t roll_limit = MIN(roll_limit_cd, quadplane.aparm.angle_max);
         nav_roll_cd  = (channel_roll->get_control_in() / 4500.0) * roll_limit;
         nav_roll_cd = constrain_int32(nav_roll_cd, -roll_limit, roll_limit);
-        float pitch_input = channel_pitch->norm_input();
+        float pitch_input = 0; // channel_pitch->norm_input(); for aerduplane
         // Scale from normalized input [-1,1] to centidegrees
         if (quadplane.tailsitter_active()) {
             // For tailsitters, the pitch range is symmetrical: [-Q_ANGLE_MAX,Q_ANGLE_MAX]
