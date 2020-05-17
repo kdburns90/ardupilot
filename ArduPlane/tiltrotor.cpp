@@ -338,8 +338,6 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
 {
     float tilt_factor = cosf(radians(tilt.current_tilt*90));
 
-    tilt_factor = 1.0f; // for aerduplane
-
     // when we got past Q_TILT_MAX we gang the tilted motors together
     // to generate equal thrust. This makes them act as a single pitch
     // control motor while preventing them trying to do roll and yaw
@@ -456,6 +454,11 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
     } else { // hover
         float yaw_out = motors->get_yaw();
         float pitch_out = motors->get_pitch();
+
+        // float pitch_in = plane.channel_pitch->norm_input();
+        // (ahrs.pitch_sensor * 0.01f) actual pitch in degrees
+        // ToDeg(ahrs.get_gyro().y) actual pitch rate degrees/second
+
         motors->set_yaw(0);
         motors->set_pitch(0);
         motors->output();
