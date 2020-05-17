@@ -338,8 +338,6 @@ void QuadPlane::tilt_compensate_up(float *thrust, uint8_t num_motors)
 {
     float tilt_factor = cosf(radians(tilt.current_tilt*90));
 
-    tilt_factor = 1.0f; // for aerduplane
-
     // when we got past Q_TILT_MAX we gang the tilted motors together
     // to generate equal thrust. This makes them act as a single pitch
     // control motor while preventing them trying to do roll and yaw
