@@ -453,7 +453,14 @@ void QuadPlane::tiltrotor_vectored_yaw(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorBackRight, 1000 * (base_output + elevon_right * elevon_range));
     } else { // hover
         float yaw_out = motors->get_yaw();
-        float pitch_out = plane.channel_pitch->norm_input();
+
+        float pitch_out = plane.channel_pitch->norm_input() - (ahrs.pitch_sensor * 0.01f / tilt.tilt_yaw_angle);
+        if (pitch_out > 1.0f){
+            pitch_out = 1.0f;
+        }else if (pitch_out < -1.0f){
+            pitch_out = -1.0f;
+        }
+
         motors->set_yaw(0);
         motors->output();
 
